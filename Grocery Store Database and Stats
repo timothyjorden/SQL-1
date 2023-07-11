@@ -1,0 +1,26 @@
+--Create a grocery store database
+CREATE TABLE store (id INTEGER PRIMARY KEY, name TEXT, quantity INTEGER, cost INTEGER, price INTEGER);
+
+--insert grocery store item data
+INSERT INTO store VALUES 
+(1, 'apple', 10, 2, 5),
+(2, 'pear', 20, 3, 4),
+(3, 'orange', 3, 4, 7),
+(4, 'peach', 15, 3, 8),
+(5, 'strawberry', 50, 2, 6),
+(6, 'grape', 75, 1, 4),
+(7, 'tangerine', 8, 3, 5),
+(8, 'plum', 6, 5, 9),
+(9, 'watermelon', 12, 10, 16),
+(10, 'cannalope', 16, 8, 12),
+(11, 'blueberry', 48, 4, 10),
+(12, 'banana', 20, 3, 6),
+(13, 'pineapple', 32, 8, 18),
+(14, 'blackberry', 15, 6, 10),
+(15, 'raspberry', 22, 3, 7);
+
+--display the store database ordered by price.
+SELECT * FROM store ORDER BY price;
+
+--how many items are there for sale in the grocery store?
+SELECT SUM(quantity) FROM store;
