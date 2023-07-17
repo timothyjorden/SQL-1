@@ -1,0 +1,45 @@
+/* List talents associated with famous poeple */
+CREATE TABLE profession (id INTEGER PRIMARY KEY AUTOINCREMENT, talent_name TEXT);
+    
+INSERT INTO profession (talent_name) VALUES
+    ("Singing"),
+    ("Acting"),
+    ("Athlete"),
+    ("Modeling");
+
+/* Create and insert a list of famous people along with their associated talent */
+CREATE TABLE famous_people (id INTEGER PRIMARY KEY AUTOINCREMENT,  name TEXT, talent_id INTEGER);
+
+INSERT INTO famous_people (name, talent_id) VALUES 
+    ("Ben Affleck", 2),
+    ("Jennifer Lopez", 2), 
+    ("Tim McGraw", 1),
+    ("Faith Hill", 1),
+    ("Adam Levine", 1),
+    ("Behati Prinsloo", 4),
+    ("Ashton Kutcher", 2),
+    ("Mila Kunis", 2),
+    ("David Beckham", 3),
+    ("Victoria Beckham", 4);
+
+/* Create a table that joins famous couples together */ 
+CREATE TABLE famous_couples (id INTEGER PRIMARY KEY AUTOINCREMENT, spouse_id1 INTEGER, spouse_id2 INTEGER);
+
+INSERT INTO famous_couples (spouse_id1, spouse_id2) VALUES
+    (1, 2),
+    (3, 4),
+    (5, 6),
+    (7, 8),
+    (9, 10);
+
+/* Make a table that lists famous couples under Husband and Wife */
+SELECT a.name Husband, b.name Wife FROM famous_couples
+    JOIN famous_people a
+    ON famous_couples.spouse_id1 = a.id
+    JOIN famous_people b
+    ON famous_couples.spouse_id2 = b.id;
+
+/* Make a table that lists famous people along with their primary profession */
+SELECT name Name, talent_name Talent FROM famous_people
+    JOIN profession
+    ON famous_people.talent_id = profession.id;
