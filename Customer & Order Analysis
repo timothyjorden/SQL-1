@@ -1,9 +1,9 @@
-/* I wrote this query to determine the number of orders the company recieved during the month of January */
+/* I wrote this query to determine the number of orders the company received during the month of January */
 SELECT COUNT(orderID) 
     FROM BIT_DB.JanSales
     WHERE length(orderID) = 6;
     
-/* I wrote this query to futher breakdown order data from the month of January to find out how many orders were for iPhones */
+/* I wrote this query to further breakdown order data from the month of January to find out how many orders were for iPhones */
 SELECT COUNT(Product) 
     FROM BIT_DB.JanSales
     WHERE Product = "iPhone";
@@ -22,7 +22,7 @@ SELECT Product, MIN(price)
     FROM BIT_DB.JanSales
     ORDER BY price;
     
-/* I wrote this query to catelog the products sold by the company in the month of January with the product's corresponding total revenue generated in the month
+/* I wrote this query to catalog the products sold by the company in the month of January with the product's corresponding total revenue generated in the month
 in alphabetical order and free from empty spaces */
 SELECT Product, price*Quantity AS total_revenue
     FROM BIT_DB.JanSales
@@ -44,13 +44,13 @@ SELECT COUNT(distinct customers.acctnum) Customers_Ordered_Over_Two, AVG(Quantit
     WHERE FS.Quantity > 2
     AND length(orderID) = 6;
 
-/* I wrote this query to list every order the company recieved during the first weekend in February and their corresponding location */
+/* I wrote this query to list every order the company received during the first weekend in February and their corresponding location */
 SELECT orderdate, location
     FROM BIT_DB.FebSales  
     WHERE orderdate BETWEEN "02/02/19 00:00" AND "02/03/19 00:00"
     ORDER BY orderdate ASC;
 
-/* I wrote this query to congreagate a list of company products and the location of which at least a quantity of five where sold in the first half 
+/* I wrote this query to congregate a list of company products and the location of which at least a quantity of five where sold in the first half 
 of the month of March */
 SELECT DISTINCT Product, Quantity, Location
     FROM BIT_DB.MarSales
