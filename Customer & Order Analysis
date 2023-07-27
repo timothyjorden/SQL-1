@@ -63,3 +63,40 @@ SELECT Product, SUM(Quantity) Quantity_Sold_in_LA
     FROM BIT_DB.FebSales
     WHERE location LIKE "%Los Angeles%"
     GROUP BY Product;
+
+/* I wrote this query to determine which locations in New York had at least three orders in the month of January and the number of orders they received */
+SELECT DISTINCT location, COUNT(orderID) Orders_Received
+    FROM BIT_DB.JanSales
+    WHERE location LIKE "%NY%"
+    AND LENGTH(orderid) = 6 
+    AND orderid <> "Order ID"
+    GROUP BY location
+    HAVING COUNT(orderID) >=3
+    ORDER BY location;
+    
+/* I wrote this query to determine the quantity of each type of headphone the company sold in the month of February */
+SELECT Product, SUM(Quantity) Quantity
+    FROM BIT_DB.FebSales
+    WHERE Product LIKE "%headphone%"
+    GROUP BY Product;
+    
+/* I wrote this query to determine the average amount of money spent per customer account in the month of February */
+SELECT SUM(quantity*price)/COUNT(cust.acctnum)
+    FROM BIT_DB.FebSales FS
+    LEFT JOIN BIT_DB.customers cust
+    ON FS.orderid=cust.order_id
+    WHERE LENGTH(orderid) = 6 
+    AND orderid <> "Order ID";
+    
+/* I wrote this query to determine the average quantity of products purchased per customer account in the month of February */ 
+SELECT SUM(FS.Quantity) / COUNT(cust.acctnum)
+    FROM BIT_DB.FebSales FS
+    LEFT JOIN BIT_DB.customers cust
+    ON FS.orderID = cust.order_id;
+    
+/* I wrote this query to determine which product brought in the most revenue in the month of January along with amount of revenue it generated */
+SELECT Product, SUM(Quantity*price) Revenue
+    FROM BIT_DB.JanSales
+    GROUP BY Product    
+    ORDER BY Revenue DESC
+    LIMIT 1;
