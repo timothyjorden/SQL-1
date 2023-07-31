@@ -1,0 +1,49 @@
+/* I wrote this query to determine which two employees have worked at the company the longest */
+SELECT LastName, FirstName, HireDate
+    FROM chinook.employees
+    ORDER BY HireDate DESC
+    LIMIT 2;
+    
+/* I wrote this query to get a comprehensive list of available Album titles and the name of the corresponding artists */
+SELECT art.Name Artist_Name, alb.Title Album_Title
+    FROM chinook.artists art
+    JOIN chinook.albums alb
+    ON art.ArtistId = alb.ArtistId
+    ORDER BY art.Name;
+        
+/* I wrote this query to obtain a list of email addresses for customers in the UNited States to email a promotional incentive to */
+SELECT Email
+    FROM chinook.customers
+    WHERE Country = "USA"
+    ORDER BY Email ASC;
+    
+/* I wrote this query to determine the names of the top ten customers who had the largest invoice totals in the first six months of 2009 */
+SELECT cust.LastName, cust.FirstName, inv.Total
+    FROM chinook.customers cust
+    JOIN chinook.invoices inv
+    ON cust.CustomerId = inv.CustomerId
+    WHERE inv.InvoiceDate BETWEEN "2009-01-01" AND "2009-06-31" 
+    GROUP BY cust.CustomerId
+    ORDER BY inv.Total DESC
+    LIMIT 10;
+    
+/* I wrote this query to determine the total revenue each sales agent has generated for the company */
+SELECT emp.LastName Last_Name, emp.FirstName First_Name, ROUND(SUM(inv.Total), 2) AS "Revenue_Generated"
+    FROM chinook.employees emp
+    JOIN chinook.customers cus
+        ON cus.SupportRepId = emp.EmployeeId
+    JOIN chinook.invoices inv
+        ON inv.CustomerId = cus.CustomerId
+    WHERE emp.Title = "Sales Support Agent"
+    GROUP BY emp.LastName
+    ORDER BY Revenue_Generated DESC;
+    
+/* I wrote this query to view track names with artist name and their corresponding genre and available media type */   
+SELECT tra.Composer Artist_Name, tra.Name Track_Name, gen.Name Genre, med.Name Media_Type
+    FROM chinook.tracks tra
+    JOIN chinook.Genres gen
+        ON tra.GenreId = gen.GenreId
+    JOIN chinook.media_types med
+        ON tra.MediaTypeId = med.MediaTypeId
+    WHERE tra.composer IS NOT NULL
+    GROUP BY tra.composer;
