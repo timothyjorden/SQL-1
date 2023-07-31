@@ -1,0 +1,57 @@
+CREATE TABLE BIT_DB.Spotifydata (
+    id integer PRIMARY KEY,
+    artist_name varchar NOT NULL,
+    track_name varchar NOT NULL,
+    track_id varchar NOT NULL,
+    popularity integer NOT NULL,
+    danceability decimal(4,3) NOT NULL,
+    energy decimal(4,3) NOT NULL,
+    song_key integer NOT NULL,
+    loudness decimal(5,3) NOT NULL,
+    song_mode integer NOT NULL,
+    speechiness decimal(5,4) NOT NULL,
+    acousticness decimal(6,5) NOT NULL,
+    instrumentalness decimal(8,7) NOT NULL,
+    liveness decimal(5,4) NOT NULL,
+    valence decimal(4,3) NOT NULL,
+    tempo decimal(6,3) NOT NULL,
+    duration_ms integer NOT NULL,
+    time_signature integer NOT NULL );
+    
+SELECT * FROM BIT_DB.Spotifydata;
+
+/* I wrote this query to determine which artists had more than one top song in 2021 and the amount of songs they had in which they were listed from most to least */
+SELECT artist_name, COUNT(artist_name) Total
+    FROM BIT_DB.Spotifydata
+    GROUP by artist_name
+    HAVING Total > 1    
+    ORDER BY Total DESC;
+    
+/* I wrote this query to determine the most popular song key from Spotify's top songs of 2021 and the number of times that song key appeared in the list */
+SELECT song_key, COUNT(song_key) Number_of_Times
+    FROM BIT_DB.Spotifydata
+    GROUP BY song_key
+    ORDER BY song_key DESC
+    LIMIT 1;
+    
+/* I wrote this query to determine the average length of time Spotify's top songs of 2021 are in minutes*/
+SELECT ((AVG(duration_ms) / 1000) / 60) Average_Minutes
+    FROM BIT_DB.Spotifydata;
+    
+/* I wrote this query to compare the top 10 danceable songs in Spotify's top songs of 2021 with their popularity ratings*/
+SELECT artist_name, track_name, popularity, danceability
+    FROM BIT_DB.Spotifydata
+    ORDER BY danceability DESC
+    LIMIT 10;
+    
+/* I wrote this query to categorize the tempo level of Spotify's top songs of 2021 */
+SELECT track_name, popularity, danceability,
+    CASE
+        WHEN tempo > 165 THEN "A. Very High"
+        WHEN tempo > 130 THEN "B. High"
+        WHEN tempo > 100 THEN "C. Average"
+        ELSE "D. Lower End"
+    END AS "Tempo_Level"
+    FROM BIT_DB.Spotifydata
+    ORDER BY Tempo_Level;
+    
