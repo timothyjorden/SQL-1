@@ -1,0 +1,55 @@
+#
+
+1. I wrote this query to determine the number of movie titles that are listed in the database.
+SELECT count(type)
+  FROM "netflix_titles_info"
+  WHERE type='Movie';
+  
+2. I wrote this query to see the date that a title was most recently added on.
+SELECT max(date(date_added))
+  FROM "netflix_titles_info";
+  
+3. I wrote this query to obtain a comprehensive list of titles in the database.
+SELECT title
+  FROM "netflix_titles_info"
+  ORDER BY title;
+  
+4. I wrote this query to determine the name of the director of The Starling.
+SELECT director
+  FROM "netflix_people" np
+  LEFT JOIN "netflix_titles_info" nti
+  ON np.show_id = nti.show_id
+  WHERE title = 'The Starling';
+  
+5. I wrote this query to determine the oldest movie in the database along with the year it was released.
+SELECT title, release_year
+  FROM "netflix_titles_info"
+  WHERE type = 'Movie'
+  ORDER BY release_year
+  LIMIT 1;
+ 
+6. I wrote this query to obtain a list of directors and the number of titles in the database that they directed.
+SELECT director, COUNT(title)
+  FROM "netflix_people" np
+  JOIN "netflix_titles_info" nti
+  ON np.show_id = nti.show_id
+  WHERE director IS NOT NULL
+  GROUP BY director;
+   
+7. I wrote this query to receive a list of titles from the United Kingdom.
+SELECT title
+  FROM "netflix_titles_info"
+  WHERE country = 'United Kingdom';
+   
+8. I wrote this query to obtain a list of years that the titles in the database were released along with their ratings.
+SELECT release_year, rating
+  FROM "netflix_titles_info"
+  ORDER BY release_year;
+  
+9. I wrote this query to determine the title and duration of the title with the longest duration in the database.
+SELECT title, duration
+  FROM "netflix_titles_info"
+  ORDER BY duration DESC
+  LIMIT 1;
+  
+10. 
